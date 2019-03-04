@@ -17,12 +17,18 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+from rest_framework import routers
+from notes.api import NoteViewSet
+from products.api import ProductViewSet
 
-from notes import endpoints
+router = routers.DefaultRouter()
+router.register('products', ProductViewSet, 'products')
+router.register('notes', NoteViewSet, 'notes')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/', include(endpoints)),
-    url(r'^api/auth/', include('knox.urls')),
-    url(r'^', TemplateView.as_view(template_name="index.html"))
+    path('api/', include(router.urls)),
+    path('api/auth/', include('auth.urls')),
+    path('api/auth/', include('knox.urls')),
+    path('', TemplateView.as_view(template_name="index.html"), name='home')
 ]

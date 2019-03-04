@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'rest_framework',
     'knox',
-    'notes.apps.NotesConfig'
+    'notes.apps.NotesConfig',
+    'products.apps.ProductsConfig'
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Hong_Kong'
 
 USE_I18N = True
 
