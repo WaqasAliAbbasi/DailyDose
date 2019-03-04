@@ -7,10 +7,12 @@ name = "pypi"
 
 [packages]
 
-django = "*"
+Django = "*"
 django-webpack-loader = "*"
 djangorestframework = "*"
 django-rest-knox = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 
 [dev-packages]
