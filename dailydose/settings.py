@@ -126,14 +126,14 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     # So Django knows about webpack files
-    os.path.join(BASE_DIR, "frontend", "build", "static"),
+    os.path.join(BASE_DIR, "build", "static"),
 ]
 
 WEBPACK_LOADER = {
     "DEFAULT": {
         "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "frontend/build/static/",  # must end with slash
-        "STATS_FILE": os.path.join(BASE_DIR, "frontend", "build", "webpack-stats.json"),
+        "BUNDLE_DIR_NAME": "build/static/",  # must end with slash
+        "STATS_FILE": os.path.join(BASE_DIR, "build", "webpack-stats.json"),
     }
 }
 

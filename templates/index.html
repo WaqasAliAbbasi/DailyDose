@@ -28,8 +28,11 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!-- main -->
+    {% render_bundle 'main' %}
+    <!-- vendors -->
+    {% render_bundle 'vendors' %}
+    <!-- runtime~main -->
+    {% render_bundle 'runtime~main' %}
   </body>
 </html>
-
-{% render_bundle 'vendors' %} {% render_bundle 'main' %} {% render_bundle
-'runtime~main' %}

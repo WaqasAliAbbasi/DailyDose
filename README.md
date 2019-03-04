@@ -16,7 +16,6 @@
 
 ### How to start web app
 
-- Open web app directory `cd frontend`
 - Install dependencies by `yarn install`
 - Start web app by `yarn start`
 - Access web app at [http://127.0.0.1:3000](http://127.0.0.1:3000)
