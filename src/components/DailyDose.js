@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { notes, auth } from "../actions";
 
-class DailyDose extends Component {
+class DailyDose extends React.Component {
   state = {
     text: "",
     updateNoteId: null
@@ -36,7 +36,7 @@ class DailyDose extends Component {
   render() {
     return (
       <div>
-        <h2>Welcome to PonyNote!</h2>
+        <h2>Welcome to Daily Dose!</h2>
         <hr />
         <div style={{ textAlign: "right" }}>
           {this.props.user.username}

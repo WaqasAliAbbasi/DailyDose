@@ -12,6 +12,7 @@ import DailyDose from "./components/DailyDose";
 import NotFound from "./components/NotFound";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Box from "./components/Box";
 
 let store = createStore(ponyApp, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -45,6 +46,7 @@ class RootContainerComponent extends Component {
           <PrivateRoute exact path="/" component={DailyDose} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/box" component={Box} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
