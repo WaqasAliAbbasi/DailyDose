@@ -1,3 +1,5 @@
+import * as types from "../constants/ActionTypes";
+
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
@@ -8,10 +10,10 @@ const initialState = {
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
-    case "USER_LOADING":
+    case types.USER_LOADING:
       return { ...state, isLoading: true };
 
-    case "USER_LOADED":
+    case types.USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
@@ -19,8 +21,8 @@ export default function auth(state = initialState, action) {
         user: action.user
       };
 
-    case "LOGIN_SUCCESSFUL":
-    case "REGISTRATION_SUCCESSFUL":
+    case types.LOGIN_SUCCESSFUL:
+    case types.REGISTRATION_SUCCESSFUL:
       localStorage.setItem("token", action.data.token);
       return {
         ...state,
@@ -30,10 +32,10 @@ export default function auth(state = initialState, action) {
         errors: null
       };
 
-    case "AUTHENTICATION_ERROR":
-    case "LOGIN_FAILED":
-    case "REGISTRATION_FAILED":
-    case "LOGOUT_SUCCESSFUL":
+    case types.AUTHENTICATION_ERROR:
+    case types.LOGIN_FAILED:
+    case types.REGISTRATION_FAILED:
+    case types.LOGOUT_SUCCESSFUL:
       localStorage.removeItem("token");
       return {
         ...state,

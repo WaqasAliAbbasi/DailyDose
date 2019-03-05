@@ -1,29 +1,25 @@
+import axios from "axios";
+
+import * as types from "../constants/ActionTypes";
+
 export const fetchNotes = () => {
   return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let { token } = getState().auth;
+    const headers = {};
+    const { token } = getState().auth;
 
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch("/api/notes/", { headers })
+    return axios
+      .get("/api/notes/", { headers })
       .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return { status: res.status, data };
-          });
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
+        return dispatch({ type: types.FETCH_NOTES, notes: res.data });
       })
-      .then(res => {
-        if (res.status === 200) {
-          return dispatch({ type: "FETCH_NOTES", notes: res.data });
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
-          throw res.data;
+      .catch(error => {
+        const { response } = error;
+        if (response.status === 401 || response.status === 403) {
+          dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
   };
@@ -31,31 +27,22 @@ export const fetchNotes = () => {
 
 export const addNote = text => {
   return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let { token } = getState().auth;
+    const headers = {};
+    const { token } = getState().auth;
 
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let body = JSON.stringify({ text });
-    return fetch("/api/notes/", { headers, method: "POST", body })
+    return axios
+      .post("/api/notes/", { text }, { headers })
       .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return { status: res.status, data };
-          });
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
+        return dispatch({ type: types.ADD_NOTE, note: res.data });
       })
-      .then(res => {
-        if (res.status === 201) {
-          return dispatch({ type: "ADD_NOTE", note: res.data });
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
-          throw res.data;
+      .catch(error => {
+        const { response } = error;
+        if (response.status === 401 || response.status === 403) {
+          dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
   };
@@ -63,33 +50,23 @@ export const addNote = text => {
 
 export const updateNote = (index, text) => {
   return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let { token } = getState().auth;
+    const headers = {};
+    const { token } = getState().auth;
 
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let body = JSON.stringify({ text });
-    let noteId = getState().notes[index].id;
-
-    return fetch(`/api/notes/${noteId}/`, { headers, method: "PUT", body })
+    const noteId = getState().notes[index].id;
+    return axios
+      .put(`/api/notes/${noteId}/`, { text }, { headers })
       .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return { status: res.status, data };
-          });
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
+        return dispatch({ type: types.UPDATE_NOTE, note: res.data, index });
       })
-      .then(res => {
-        if (res.status === 200) {
-          return dispatch({ type: "UPDATE_NOTE", note: res.data, index });
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
-          throw res.data;
+      .catch(error => {
+        const { response } = error;
+        if (response.status === 401 || response.status === 403) {
+          dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
   };
@@ -97,34 +74,23 @@ export const updateNote = (index, text) => {
 
 export const deleteNote = index => {
   return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let { token } = getState().auth;
+    const headers = {};
+    const { token } = getState().auth;
 
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let noteId = getState().notes[index].id;
-
-    return fetch(`/api/notes/${noteId}/`, { headers, method: "DELETE" })
+    const noteId = getState().notes[index].id;
+    return axios
+      .delete(`/api/notes/${noteId}/`, { headers })
       .then(res => {
-        if (res.status === 204) {
-          return { status: res.status, data: {} };
-        } else if (res.status < 500) {
-          return res.json().then(data => {
-            return { status: res.status, data };
-          });
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
+        return dispatch({ type: types.DELETE_NOTE, index });
       })
-      .then(res => {
-        if (res.status === 204) {
-          return dispatch({ type: "DELETE_NOTE", index });
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
-          throw res.data;
+      .catch(error => {
+        const { response } = error;
+        if (response.status === 401 || response.status === 403) {
+          dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
   };
