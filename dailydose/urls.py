@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/auth/', include('auth.urls')),
     path('api/auth/', include('knox.urls')),
-    path('', TemplateView.as_view(template_name="index.html"), name='home')
+    path('', TemplateView.as_view(template_name="index.html"), name='react-home'),
+    url(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html"), name='react-other')
 ]
