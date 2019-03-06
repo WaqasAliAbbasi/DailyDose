@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { notes, auth } from "../actions";
 
-class DailyDose extends React.Component {
+class Notes extends React.Component {
   state = {
     text: "",
     updateNoteId: null
@@ -36,13 +36,6 @@ class DailyDose extends React.Component {
   render() {
     return (
       <div>
-        <h2>Welcome to Daily Dose!</h2>
-        <hr />
-        <div style={{ textAlign: "right" }}>
-          {this.props.user.username}
-          <button onClick={this.props.logout}>logout</button>
-        </div>
-
         <h3>Add new note</h3>
         <form onSubmit={this.submitNote}>
           <input
@@ -106,4 +99,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DailyDose);
+)(Notes);

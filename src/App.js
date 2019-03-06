@@ -1,22 +1,37 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { Grommet } from "grommet";
 
 import { auth } from "./actions";
 import ponyApp from "./reducers";
 
-import DailyDose from "./components/DailyDose";
+import AppBar from "./components/AppBar";
+import Notes from "./components/Notes";
 import NotFound from "./components/NotFound";
 import Login from "./components/Login";
-import Register from "./components/Register";
+import SignUp from "./components/SignUp";
 import Box from "./components/Box";
 
 let store = createStore(ponyApp, composeWithDevTools(applyMiddleware(thunk)));
 
-class RootContainerComponent extends Component {
+const theme = {
+  global: {
+    colors: {
+      brand: "#16a085"
+    },
+    font: {
+      family: "Roboto",
+      size: "14px",
+      height: "20px"
+    }
+  }
+};
+
+class RootContainerComponent extends React.Component {
   componentDidMount() {
     this.props.loadUser();
   }
@@ -29,7 +44,7 @@ class RootContainerComponent extends Component {
           if (this.props.auth.isLoading) {
             return <em>Loading...</em>;
           } else if (!this.props.auth.isAuthenticated) {
-            return <Redirect to="/login" />;
+            return <Redirect to="/auth/login" />;
           } else {
             return <ChildComponent {...props} />;
           }
@@ -38,18 +53,40 @@ class RootContainerComponent extends Component {
     );
   };
 
-  render() {
-    let { PrivateRoute } = this;
+  AppBarLayout = props => {
+    const { PrivateRoute } = this;
     return (
-      <BrowserRouter>
+      <AppBar>
         <Switch>
-          <PrivateRoute exact path="/" component={DailyDose} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/box" component={Box} />
+          <Route exact path="/" component={Box} />
+          <PrivateRoute exact path="/notes" component={Notes} />
           <Route component={NotFound} />
         </Switch>
-      </BrowserRouter>
+      </AppBar>
+    );
+  };
+
+  AuthLayout = props => {
+    return (
+      <Switch>
+        <Route exact path="/auth/login" component={Login} />
+        <Route exact path="/auth/signup" component={SignUp} />
+        <Route component={NotFound} />
+      </Switch>
+    );
+  };
+
+  render() {
+    const { AppBarLayout, AuthLayout } = this;
+    return (
+      <Grommet theme={theme} full>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/auth" component={AuthLayout} />
+            <Route path="/" component={AppBarLayout} />
+          </Switch>
+        </BrowserRouter>
+      </Grommet>
     );
   }
 }
@@ -73,7 +110,7 @@ let RootContainer = connect(
   mapDispatchToProps
 )(RootContainerComponent);
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>

@@ -4,15 +4,8 @@ import * as types from "../constants/ActionTypes";
 
 export const getAllProducts = () => {
   return (dispatch, getState) => {
-    const headers = {};
-    const { token } = getState().auth;
-
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
-    }
-
     return axios
-      .get("/api/products/", { headers })
+      .get("/api/products/")
       .then(res => {
         const products = res.data;
         return dispatch({ type: types.RECEIVE_PRODUCTS, products });

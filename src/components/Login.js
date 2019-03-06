@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { Link, Redirect } from "react-router-dom";
 
 import { auth } from "../actions";
@@ -52,7 +51,7 @@ class Login extends React.Component {
           </p>
 
           <p>
-            Don't have an account? <Link to="/register">Register</Link>
+            Don't have an account? <Link to="/auth/signup">Sign Up</Link>
           </p>
         </fieldset>
       </form>

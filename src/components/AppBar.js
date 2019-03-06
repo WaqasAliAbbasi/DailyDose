@@ -1,0 +1,127 @@
+import React from "react";
+import {
+  Box,
+  Heading,
+  Button,
+  Text,
+  Anchor,
+  Image,
+  ResponsiveContext
+} from "grommet";
+import { Login, Logout } from "grommet-icons";
+import { connect } from "react-redux";
+import { NavLink, Link, withRouter } from "react-router-dom";
+
+import { auth } from "../actions";
+import Logo from "../logo.svg";
+
+const sidebarItems = [
+  {
+    text: "Your Box",
+    route: "/",
+    public: true
+  },
+  {
+    text: "Notes",
+    route: "/notes",
+    public: false
+  }
+];
+
+class AppBar extends React.Component {
+  render() {
+    const { children, user, location } = this.props;
+    return (
+      <ResponsiveContext.Consumer>
+        {size => (
+          <div>
+            <Box
+              tag="header"
+              direction="row"
+              align="center"
+              justify="between"
+              background="brand"
+              pad={{ left: "medium", right: "small", vertical: "xsmall" }}
+              elevation="medium"
+              style={{ zIndex: "1" }}
+            >
+              <Box direction="row" align="center">
+                <Box direction="row" align="center" margin={{ right: "small" }}>
+                  <Image
+                    src={Logo}
+                    style={{ width: 50, height: 50 }}
+                    margin={{ right: "xsmall" }}
+                  />
+                  {size !== "small" && (
+                    <Heading level="3" margin="none">
+                      DailyDose
+                    </Heading>
+                  )}
+                </Box>
+                <Box direction="row">
+                  {sidebarItems.map(
+                    item =>
+                      (item.public || user) && (
+                        <NavLink
+                          exact
+                          to={item.route}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Anchor
+                            label={item.text}
+                            margin="xsmall"
+                            color={
+                              (location.pathname === item.route &&
+                                "accent-1") ||
+                              "light-1"
+                            }
+                          />
+                        </NavLink>
+                      )
+                  )}
+                </Box>
+              </Box>
+              {user && (
+                <Box direction="row">
+                  <Text alignSelf="center" margin="xsmall">
+                    {user.username}
+                  </Text>
+                  <Button
+                    icon={<Logout />}
+                    label="Logout"
+                    onClick={this.props.logout}
+                  />
+                </Box>
+              )}
+              {!user && (
+                <Link to="/auth/login">
+                  <Button icon={<Login />} label="Login" />
+                </Link>
+              )}
+            </Box>
+            <Box margin="small">{children}</Box>
+          </div>
+        )}
+      </ResponsiveContext.Consumer>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(auth.logout())
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AppBar)
+);
