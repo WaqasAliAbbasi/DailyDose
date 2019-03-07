@@ -21,6 +21,7 @@ export const loadUser = () => {
       })
       .catch(error => {
         const { response } = error;
+        console.log(error);
         if (response.status >= 400 && response.status < 500) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }

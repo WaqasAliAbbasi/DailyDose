@@ -14,7 +14,7 @@ import Notes from "./components/Notes";
 import NotFound from "./components/NotFound";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import Box from "./components/Box";
+import CurrentBox from "./components/CurrentBox";
 
 let store = createStore(ponyApp, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -58,7 +58,7 @@ class RootContainerComponent extends React.Component {
     return (
       <AppBar>
         <Switch>
-          <Route exact path="/" component={Box} />
+          <PrivateRoute exact path="/" component={CurrentBox} />
           <PrivateRoute exact path="/notes" component={Notes} />
           <Route component={NotFound} />
         </Switch>

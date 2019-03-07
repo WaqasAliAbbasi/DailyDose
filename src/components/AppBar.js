@@ -100,7 +100,9 @@ class AppBar extends React.Component {
                 </Link>
               )}
             </Box>
-            <Box margin="small">{children}</Box>
+            <Box pad="small" border={{ color: "brand", size: "large" }}>
+              {children}
+            </Box>
           </div>
         )}
       </ResponsiveContext.Consumer>
