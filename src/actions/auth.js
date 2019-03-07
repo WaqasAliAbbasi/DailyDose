@@ -28,10 +28,10 @@ export const loadUser = () => {
   };
 };
 
-export const login = (username, password) => {
+export const login = (email, password) => {
   return dispatch => {
     return axios
-      .post("/api/auth/login/", { username, password })
+      .post("/api/auth/login/", { email, password })
       .then(res => {
         dispatch({ type: types.LOGIN_SUCCESSFUL, data: res.data });
         return res.data;
@@ -47,10 +47,10 @@ export const login = (username, password) => {
   };
 };
 
-export const register = (username, password) => {
+export const register = (name, email, password) => {
   return dispatch => {
     return axios
-      .post("/api/auth/register/", { username, password })
+      .post("/api/auth/register/", { name, email, password })
       .then(res => {
         dispatch({ type: types.REGISTRATION_SUCCESSFUL, data: res.data });
         return res.data;

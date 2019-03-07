@@ -28,7 +28,7 @@ router.register('notes', NoteViewSet, 'notes')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/auth/', include('auth.urls')),
+    path('api/auth/', include('users.urls')),
     path('api/auth/', include('knox.urls')),
     path('', TemplateView.as_view(template_name="index.html"), name='react-home'),
     url(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html"), name='react-other')

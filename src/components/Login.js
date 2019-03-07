@@ -6,13 +6,13 @@ import { auth } from "../actions";
 
 class Login extends React.Component {
   state = {
-    username: "",
+    email: "",
     password: ""
   };
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(this.state.email, this.state.password);
   };
 
   render() {
@@ -31,11 +31,11 @@ class Login extends React.Component {
             </ul>
           )}
           <p>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
-              id="username"
-              onChange={e => this.setState({ username: e.target.value })}
+              id="email"
+              onChange={e => this.setState({ email: e.target.value })}
             />
           </p>
           <p>
@@ -74,8 +74,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (username, password) => {
-      return dispatch(auth.login(username, password));
+    login: (email, password) => {
+      return dispatch(auth.login(email, password));
     }
   };
 };

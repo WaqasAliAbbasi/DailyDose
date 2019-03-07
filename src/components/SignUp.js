@@ -6,13 +6,14 @@ import { auth } from "../actions";
 
 class SignUp extends React.Component {
   state = {
-    username: "",
+    name: "",
+    email: "",
     password: ""
   };
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.register(this.state.username, this.state.password);
+    this.props.register(this.state.name, this.state.email, this.state.password);
   };
 
   render() {
@@ -31,11 +32,19 @@ class SignUp extends React.Component {
             </ul>
           )}
           <p>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
-              id="username"
-              onChange={e => this.setState({ username: e.target.value })}
+              id="name"
+              onChange={e => this.setState({ name: e.target.value })}
+            />
+          </p>
+          <p>
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              onChange={e => this.setState({ email: e.target.value })}
             />
           </p>
           <p>
@@ -74,8 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: (username, password) =>
-      dispatch(auth.register(username, password))
+    register: (name, email, password) =>
+      dispatch(auth.register(name, email, password))
   };
 };
 

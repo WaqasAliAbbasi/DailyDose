@@ -64,6 +64,7 @@ class AppBar extends React.Component {
                       (item.public || user) && (
                         <NavLink
                           exact
+                          key={item.route}
                           to={item.route}
                           style={{ textDecoration: "none" }}
                         >
@@ -84,7 +85,7 @@ class AppBar extends React.Component {
               {user && (
                 <Box direction="row">
                   <Text alignSelf="center" margin="xsmall">
-                    {user.username}
+                    {user.name}
                   </Text>
                   <Button
                     icon={<Logout />}

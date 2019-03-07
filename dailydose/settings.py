@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'notes.apps.NotesConfig',
-    'products.apps.ProductsConfig'
+    'products.apps.ProductsConfig',
+    'orders.apps.OrdersConfig',
+    'box.apps.BoxConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +147,5 @@ REST_FRAMEWORK = {
 }
 
 django_heroku.settings(locals())
+
+AUTH_USER_MODEL = 'users.User'
