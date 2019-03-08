@@ -22,7 +22,7 @@ export const loadUser = () => {
       .catch(error => {
         const { response } = error;
         console.log(error);
-        if (response.status >= 400 && response.status < 500) {
+        if (response && (response.status >= 400 && response.status < 500)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
@@ -39,7 +39,7 @@ export const login = (email, password) => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 403 || response.status === 401) {
+        if (response && (response.status === 403 || response.status === 401)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         } else {
           dispatch({ type: types.LOGIN_FAILED, data: response.data });
@@ -58,7 +58,7 @@ export const register = (name, email, password) => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 403 || response.status === 401) {
+        if (response && (response.status === 403 || response.status === 401)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         } else {
           dispatch({ type: types.REGISTRATION_FAILED, data: response.data });
@@ -77,7 +77,7 @@ export const logout = () => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 403 || response.status === 401) {
+        if (response && (response.status === 403 || response.status === 401)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });

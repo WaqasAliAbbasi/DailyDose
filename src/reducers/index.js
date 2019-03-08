@@ -3,12 +3,14 @@ import notes from "./notes";
 import auth from "./auth";
 import products from "./products";
 import box from "./box";
+import orders from "./orders";
 
-const ponyApp = combineReducers({
+const reducers = combineReducers({
   notes,
   auth,
   products,
-  box
+  box,
+  orders
 });
 
-export default ponyApp;
+export default reducers;

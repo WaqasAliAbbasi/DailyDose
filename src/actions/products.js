@@ -12,7 +12,7 @@ export const getAllProducts = () => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 401 || response.status === 403) {
+        if (response && (response.status === 401 || response.status === 403)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });

@@ -18,7 +18,7 @@ export const fetchNotes = () => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 401 || response.status === 403) {
+        if (response && (response.status === 401 || response.status === 403)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
@@ -41,7 +41,7 @@ export const addNote = text => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 401 || response.status === 403) {
+        if (response && (response.status === 401 || response.status === 403)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
@@ -65,7 +65,7 @@ export const updateNote = (index, text) => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 401 || response.status === 403) {
+        if (response && (response.status === 401 || response.status === 403)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });
@@ -89,7 +89,7 @@ export const deleteNote = index => {
       })
       .catch(error => {
         const { response } = error;
-        if (response.status === 401 || response.status === 403) {
+        if (response && (response.status === 401 || response.status === 403)) {
           dispatch({ type: types.AUTHENTICATION_ERROR, data: response.data });
         }
       });

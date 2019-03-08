@@ -20,3 +20,7 @@ export const RECEIVE_PRODUCTS = "RECEIVE_PRODUCTS";
 export const RECEIVE_BOX = "RECEIVE_BOX";
 export const ADD_BOX_ITEM = "ADD_BOX_ITEM";
 export const REMOVE_BOX_ITEM = "REMOVE_BOX_ITEM";
+
+export const RECEIVE_ORDERS = "RECEIVE_ORDERS";
+export const ORDER_SUCCESSFUL = "ORDER_SUCCESSFUL";
+export const ORDER_ERROR = "ORDER_ERROR";

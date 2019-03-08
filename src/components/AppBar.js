@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Heading,
-  Button,
-  Text,
-  Anchor,
-  Image,
-  ResponsiveContext
-} from "grommet";
+import { Box, Heading, Button, Text, Image, ResponsiveContext } from "grommet";
 import { Login, Logout } from "grommet-icons";
 import { connect } from "react-redux";
 import { NavLink, Link, withRouter } from "react-router-dom";
@@ -19,11 +11,21 @@ const sidebarItems = [
   {
     text: "Your Box",
     route: "/",
-    public: true
+    public: false
   },
   {
     text: "Notes",
     route: "/notes",
+    public: false
+  },
+  {
+    text: "Place Order",
+    route: "/order",
+    public: false
+  },
+  {
+    text: "Orders",
+    route: "/orders",
     public: false
   }
 ];
@@ -68,15 +70,16 @@ class AppBar extends React.Component {
                           to={item.route}
                           style={{ textDecoration: "none" }}
                         >
-                          <Anchor
-                            label={item.text}
+                          <Text
                             margin="xsmall"
                             color={
                               (location.pathname === item.route &&
                                 "accent-1") ||
                               "light-1"
                             }
-                          />
+                          >
+                            {item.text}
+                          </Text>
                         </NavLink>
                       )
                   )}
