@@ -1,12 +1,6 @@
 from rest_framework import serializers
 from .models import BoxItem
-from products.serializers import ProductSerializer
 from products.models import Product
-
-class BoxItemProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ('id', 'name')
 
 class BoxItemSerializer(serializers.ModelSerializer):
     product = serializers.StringRelatedField(read_only=True)

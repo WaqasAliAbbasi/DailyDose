@@ -21,11 +21,13 @@ from rest_framework import routers
 from notes.api import NoteViewSet
 from products.api import ProductViewSet
 from box.api import BoxItemsViewSet
+from orders.api import OrderViewSet
 
 router = routers.DefaultRouter()
 router.register('products', ProductViewSet, 'products')
 router.register('notes', NoteViewSet, 'notes')
 router.register('box_items', BoxItemsViewSet, 'box_items')
+router.register('orders', OrderViewSet, 'orders')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

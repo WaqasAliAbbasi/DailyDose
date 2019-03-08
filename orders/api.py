@@ -1,14 +1,14 @@
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 
-from .serializers import NoteSerializer
+from .serializers import OrderSerializer
 
-class NoteViewSet(viewsets.ModelViewSet):
+class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, ]
-    serializer_class = NoteSerializer
+    serializer_class = OrderSerializer
 
     def get_queryset(self):
-        return self.request.user.notes.all()
+        return self.request.user.orders.all()
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
