@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'box.apps.BoxConfig',
     'users.apps.UsersConfig',
+    'quiz.apps.QuizConfig',
 ]
 
 MIDDLEWARE = [
