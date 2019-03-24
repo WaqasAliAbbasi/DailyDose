@@ -1,18 +1,21 @@
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 
 from .models import Quiz
-from .serializers import QuizSerializer, LeanQuizSerializer
+from .serializers import QuizSerializer
 
 class QuizViewSet(viewsets.ViewSet):
-    def list(self, request):
-        queryset = Quiz.objects.all()
-        serializer = LeanQuizSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_permissions(self):
+        return [permissions.IsAuthenticated()]
 
-    def retrieve(self, request, pk=None):
-        queryset = Quiz.objects.all()
-        quiz = get_object_or_404(queryset, pk=pk)
+    def list(self, request):
+        quiz = Quiz.objects.all().first()
         serializer = QuizSerializer(quiz)
         return Response(serializer.data)
+
+class QuizAttemptViewSet(viewsets.ViewSet):
+    def get_permissions(self):
+        return [permissions.IsAuthenticated()]
+
+    def create(self, request):
+        return Response()

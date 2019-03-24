@@ -17,8 +17,3 @@ class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = ('id','title','questions')
-
-class LeanQuizSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Quiz
-        fields = ('id','title',)

@@ -5,6 +5,7 @@
   "proxy": "http://localhost:8000",
   "dependencies": {
     "axios": "^0.18.0",
+    "formik": "^1.5.1",
     "grommet": "^2.5.5",
     "grommet-icons": "^4.2.0",
     "moment": "^2.24.0",
