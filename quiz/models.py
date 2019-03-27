@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from products.models import Product
+
 class Quiz(models.Model):
     title = models.CharField(max_length=60)
 
@@ -42,3 +44,14 @@ class Response(models.Model):
 
     def __str__(self):
         return str(self.quiz_attempt) + " | " + str(self.choice)
+
+class ChoiceWeight(models.Model):
+    choice = models.ForeignKey(Choice, related_name="weights", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    weight = models.IntegerField()
+
+    class Meta:
+        unique_together = ('choice', 'product')
+
+    def __str__(self):
+        return str(self.weight) + " for " + str(self.product) + " | " + str(self.choice)

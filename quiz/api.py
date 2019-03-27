@@ -4,6 +4,9 @@ from rest_framework.response import Response
 from .models import Quiz, QuizAttempt, Question, Choice, Response as QuizResponse
 from .serializers import QuizSerializer
 
+from products.models import Product
+from products.serializers import ProductSerializer
+
 class QuizViewSet(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -40,3 +43,23 @@ class QuizAttemptViewSet(viewsets.ViewSet):
             QuizResponse.objects.create(quiz_attempt=quiz_attempt, question=question, choice=fetched_responses[question])
 
         return Response('Responses have been successfully recorded')
+
+class RecommendationsViewSet(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def list(self, request):
+        latest_attempt = request.user.quiz_attempts.all().last()
+        if not latest_attempt:
+            return Response([])
+
+        products = {}
+        for response in latest_attempt.responses.all():
+            for weight in response.choice.weights.all():
+                if weight.product not in products:
+                    products[weight.product] = 0
+                products[weight.product] += weight.weight
+
+        sorted_products = sorted(products.items(), key=lambda x: x[1], reverse=True)
+        top_five = [i[0] for i in sorted_products[:5]]
+        serializer = ProductSerializer(top_five, many=True)
+        return Response(serializer.data)

@@ -22,7 +22,7 @@ from notes.api import NoteViewSet
 from products.api import ProductViewSet
 from box.api import BoxItemsViewSet
 from orders.api import OrderViewSet
-from quiz.api import QuizViewSet, QuizAttemptViewSet
+from quiz.api import QuizViewSet, QuizAttemptViewSet, RecommendationsViewSet
 
 router = routers.DefaultRouter()
 router.register('products', ProductViewSet, 'products')
@@ -31,6 +31,7 @@ router.register('box_items', BoxItemsViewSet, 'box_items')
 router.register('orders', OrderViewSet, 'orders')
 router.register('questionnaire', QuizViewSet, 'quizzes')
 router.register('questionnaire_submit', QuizAttemptViewSet, 'quiz_attempts')
+router.register('recommendations', RecommendationsViewSet, 'recommendations')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
