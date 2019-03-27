@@ -10,7 +10,6 @@ import { auth } from "./actions";
 import ponyApp from "./reducers";
 
 import AppBar from "./components/AppBar";
-import Notes from "./components/Notes";
 import NotFound from "./components/NotFound";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
@@ -62,7 +61,6 @@ class RootContainerComponent extends React.Component {
       <AppBar>
         <Switch>
           <PrivateRoute exact path="/" component={CurrentBox} />
-          <PrivateRoute exact path="/notes" component={Notes} />
           <PrivateRoute exact path="/order" component={Order} />
           <PrivateRoute exact path="/orders" component={OrderList} />
           <PrivateRoute exact path="/questionnaire" component={Questionnaire} />

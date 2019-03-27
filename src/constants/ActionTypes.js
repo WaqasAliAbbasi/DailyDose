@@ -1,10 +1,5 @@
 export const AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR";
 
-export const DELETE_NOTE = "DELETE_NOTE";
-export const UPDATE_NOTE = "UPDATE_NOTE";
-export const ADD_NOTE = "ADD_NOTE";
-export const FETCH_NOTES = "FETCH_NOTES";
-
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
 

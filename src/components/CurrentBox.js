@@ -10,7 +10,8 @@ import {
   Box,
   Heading
 } from "grommet";
-import { AddCircle, Close } from "grommet-icons";
+import { AddCircle, Close, Cart } from "grommet-icons";
+import { Link } from "react-router-dom";
 
 import { products, box } from "../actions";
 
@@ -23,76 +24,83 @@ class CurrentBox extends React.Component {
   render() {
     const { products, box } = this.props;
     return (
-      <Box direction="row" pad="medium" justify="around">
-        <Box pad="medium">
-          <Heading level="4" margin="small">
-            Available products
-          </Heading>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableCell scope="col" border="bottom">
-                  Name
-                </TableCell>
-                <TableCell scope="col" border="bottom" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {products.map(product => (
-                <TableRow key={product.id}>
-                  <TableCell scope="row">
-                    <strong>{product.name}</strong>
+      <Box>
+        <Box direction="row" pad="medium" justify="around">
+          <Box pad="medium">
+            <Heading level="4" margin="small">
+              Available Products
+            </Heading>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableCell scope="col" border="bottom">
+                    Name
                   </TableCell>
-                  <TableCell>
-                    <Button
-                      icon={<AddCircle />}
-                      onClick={() => {
-                        this.props.addBoxItem(product.id);
-                      }}
-                    />
-                  </TableCell>
+                  <TableCell scope="col" border="bottom" />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {products.map(product => (
+                  <TableRow key={product.id}>
+                    <TableCell scope="row">
+                      <strong>{product.name}</strong>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        icon={<AddCircle />}
+                        onClick={() => {
+                          this.props.addBoxItem(product.id);
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+          <Box pad="medium" background="light-3">
+            <Heading level="4" margin="small">
+              Current Box
+            </Heading>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableCell scope="col" border="bottom">
+                    Name
+                  </TableCell>
+                  <TableCell scope="col" border="bottom">
+                    Qty
+                  </TableCell>
+                  <TableCell scope="col" border="bottom" />
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Object.keys(box).map(key => (
+                  <TableRow key={key}>
+                    <TableCell scope="row">
+                      <strong>{box[key].product}</strong>
+                    </TableCell>
+                    <TableCell scope="row">
+                      <strong>{box[key].ids.length}</strong>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        icon={<Close />}
+                        onClick={() => {
+                          this.props.removeBoxItem(box[key].ids.slice(-1)[0]);
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
         </Box>
-        <Box pad="medium" background="light-3">
-          <Heading level="4" margin="small">
-            Current Box
-          </Heading>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableCell scope="col" border="bottom">
-                  Name
-                </TableCell>
-                <TableCell scope="col" border="bottom">
-                  Qty
-                </TableCell>
-                <TableCell scope="col" border="bottom" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Object.keys(box).map(key => (
-                <TableRow key={key}>
-                  <TableCell scope="row">
-                    <strong>{box[key].product}</strong>
-                  </TableCell>
-                  <TableCell scope="row">
-                    <strong>{box[key].ids.length}</strong>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      icon={<Close />}
-                      onClick={() => {
-                        this.props.removeBoxItem(box[key].ids.slice(-1)[0]);
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <Box direction="row" pad="medium" justify="around">
+          <Link to="/order">
+            <Button icon={<Cart />} label="Place Order" />
+          </Link>
         </Box>
       </Box>
     );
