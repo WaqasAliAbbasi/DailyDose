@@ -17,11 +17,6 @@ const sidebarItems = [
     text: "Orders",
     route: "/orders",
     public: false
-  },
-  {
-    text: "Questionnaire",
-    route: "/questionnaire",
-    public: false
   }
 ];
 

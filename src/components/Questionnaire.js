@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Box, Heading, Meter, Text } from "grommet";
-import QuestionnaireForm from "./QuestionnaireForm";
+import { Redirect } from "react-router-dom";
 
+import QuestionnaireForm from "./QuestionnaireForm";
 import { questionnaire } from "../actions";
 
 class Questionnaire extends React.Component {
@@ -40,7 +41,12 @@ class Questionnaire extends React.Component {
           )}
 
           {/* Show success or error messages */}
-          {success && <Text>Your responses have been recorded</Text>}
+          {success && (
+            <div>
+              <Text>Your responses have been recorded</Text>
+              <Redirect to="/" />
+            </div>
+          )}
           {error && <Text color="status-critical">{message}</Text>}
 
           {/* Do not show form when processing */}
