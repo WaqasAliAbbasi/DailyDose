@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, RadioButtonGroup, Form, Button } from "grommet";
+import { Box, Text, Form, Button, Select } from "grommet";
 import { Formik } from "formik";
 
 const QuestionnaireForm = ({ id, questions, onSubmit }) => {
@@ -19,13 +19,18 @@ const QuestionnaireForm = ({ id, questions, onSubmit }) => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
+        const responses = {};
+        questions.forEach(question => {
+          responses[question.id] = question.choices.find(
+            choice => choice.content === values[question.id]
+          ).id;
+        });
         onSubmit({
           id,
-          responses: { ...values }
+          responses
         });
         setSubmitting(false);
       }}
-      validateOnChange={false}
     >
       {({
         values,
@@ -33,6 +38,7 @@ const QuestionnaireForm = ({ id, questions, onSubmit }) => {
         touched,
         handleBlur,
         handleSubmit,
+        handleChange,
         isSubmitting,
         setFieldValue,
         isValid
@@ -42,21 +48,10 @@ const QuestionnaireForm = ({ id, questions, onSubmit }) => {
             return (
               <Box key={question.id} pad="xsmall">
                 <Text margin="xsmall">{question.content}</Text>
-                <RadioButtonGroup
-                  name={`${question.id}`}
+                <Select
                   options={question.choices.map(choice => choice.content)}
-                  value={
-                    values[question.id] &&
-                    question.choices.find(
-                      choice => choice.id === values[question.id]
-                    ).content
-                  }
-                  onChange={event => {
-                    const valueID = question.choices.find(
-                      choice => choice.content === event.target.value
-                    ).id;
-                    setFieldValue(question.id, valueID);
-                  }}
+                  value={values[question.id] || ""}
+                  onChange={({ option }) => setFieldValue(question.id, option)}
                 />
                 <Text size="small" color="status-error" margin="xsmall">
                   {errors[question.id]}

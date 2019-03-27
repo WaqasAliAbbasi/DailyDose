@@ -37,12 +37,10 @@ export const submitQuestionnaire = form => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    console.log(form);
-
     dispatch({ type: types.QUESTIONNAIRE_SUBMIT_PROCESSING });
 
     return axios
-      .post(`/api/questionnaire_submit/`, { headers })
+      .post(`/api/questionnaire_submit/`, form, { headers })
       .then(res => {
         return dispatch({ type: types.QUESTIONNAIRE_SUBMIT_SUCCESS });
       })
